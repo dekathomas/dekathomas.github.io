@@ -1,3 +1,2 @@
-# dekathomas.github.io
-My Portfolio
+# Deka Thomas Portfolio
 This is made with vanilla javascript and scss
