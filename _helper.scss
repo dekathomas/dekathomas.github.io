@@ -1,0 +1,34 @@
+@mixin transition($target, $time, $type) {
+	-webkit-transition: $target $time $type;
+	-moz-transition: $target $time $type;
+	-o-transition: $target $time $type;
+	transition: $target $time $type;
+}
+
+@mixin boxShadow($x, $y, $b, $o) {
+	filter: drop-shadow($x $y $b rgba(0, 0, 0, $o));
+}
+
+@mixin button {
+	padding: 13px 20px;
+	background: $black;
+	font-weight: 600;
+	color: $white;
+	font-size: 1.4rem;
+	display: inline-block;
+	cursor: pointer;
+	border: none;
+
+	@include transition(all, 0.3s, linear);
+	@include boxShadow(0, 5px, 5px, 0.2);
+}
+
+@mixin buttonHover {
+	@include boxShadow(0, 10px, 10px, 0.5);
+}
+
+@mixin input {
+	padding: 13px 20px;
+	border: 1px solid $darkGrey;
+	width: 100%;
+}
