@@ -1,5 +1,6 @@
 import anchorScroll from './script/anchor.js'
 
+// Scroll Position
 anchorScroll()
 
 const body = document.querySelector('body')
