@@ -1,3 +1,7 @@
+import anchorScroll from './script/anchor.js'
+
+anchorScroll()
+
 const body = document.querySelector('body')
 const header = document.querySelector('header')
 const projectList = document.querySelectorAll('.project-list')
