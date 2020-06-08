@@ -1,3 +1,4 @@
+const body = document.querySelector('body')
 const header = document.querySelector('header')
 const projectList = document.querySelectorAll('.project-list')
 const move = 20
@@ -60,7 +61,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	const lazyLoad = function() {
 		setTimeout(function() {
 			lazyImages.forEach(function(lazyImage) {
-				if( (lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display != 'none' ) {
+				let bounding = lazyImage.getBoundingClientRect()
+				if( (bounding.top <= window.innerHeight && bounding.bottom >= 0) && getComputedStyle(lazyImage).display != 'none' ) {
 					lazyImage.src = lazyImage.dataset.src
 					lazyImage.classList.remove('lazy')
 	
@@ -116,9 +118,82 @@ imagesProject.forEach(function(image) { image.addEventListener('click', openImag
 
 // Social Media
 const socials = document.querySelectorAll('.social')
+const socialIcons = document.querySelectorAll('.social-icon')
 
 socials.forEach(function(social) {
 	social.addEventListener('click', function() {
 		window.open(`${this.dataset.link}`)
+	})
+})
+
+socialIcons.forEach(icon => {
+	icon.addEventListener('mouseenter', function() {
+		icon.style.color = icon.dataset.color
+	})
+
+	icon.addEventListener('mouseout', function() {
+		icon.style.color = 'var(--color)'
+	})
+})
+
+// Dark theme
+const darks = document.querySelectorAll('.dark-check')
+const themes = document.querySelectorAll('.theme-setting')
+
+const darkTheme = function() {
+	themes.forEach(theme => {
+		theme.classList.add('fa-moon')
+		theme.classList.remove('fa-sun')
+	})
+	body.classList.add('dark')
+}
+
+const lightTheme = function() {
+	themes.forEach(theme => {
+		theme.classList.remove('fa-moon')
+		theme.classList.add('fa-sun')
+	})
+	body.classList.remove('dark')
+}
+
+if (localStorage.getItem('dark-mode') === 'true') {
+	darkTheme()
+} else if (localStorage.getItem('dark-mode') === 'false') {
+	lightTheme()
+}
+
+darks.forEach(dark => {
+	dark.addEventListener('click', function() {
+		if (this.checked) {
+			// Dark
+			darkTheme()
+			localStorage.setItem('dark-mode', 'true')
+		} else {
+			// Light
+			lightTheme()
+			localStorage.setItem('dark-mode', 'false')
+		}
+	})
+})
+
+// Burger menu
+const burger = document.querySelector('#burger-menu')
+const navMobile = document.querySelector('#nav-mobile')
+const links = navMobile.querySelectorAll('.anchor')
+
+burger.addEventListener('click', () => {
+	if (!burger.classList.contains('clicked')) {
+		burger.classList.add('clicked')
+		navMobile.classList.add('showed')
+	} else {
+		burger.classList.remove('clicked')
+		navMobile.classList.remove('showed')
+	}
+})
+
+links.forEach(link => {
+	link.addEventListener('click', () => {
+		burger.classList.remove('clicked')
+		navMobile.classList.remove('showed')
 	})
 })
